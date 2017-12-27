@@ -16,18 +16,19 @@ public class DatabaseHelper {
 	
 	private static final Logger logger = LogManager.getLogger(DatabaseHelper.class);
 
+	/**
+	 * Creates the application database if it does not exist
+	 * @throws IOException 
+	 * @throws SQLException 
+	 * @throws Exception 
+	 */
 	public void createDatabase() throws IOException {
 		ClassLoader classLoader = getClass().getClassLoader();
 		
-		File userFile = new File(classLoader.getResource(DatabaseConstants.DDL_USER).getFile());
-		String userSQL = FileUtils.readFileToString(userFile, StandardCharsets.UTF_8);
+		String userSQL = getSQLFromFile(classLoader, DatabaseConstants.DDL_USER);
+		String followerUserSQL = getSQLFromFile(classLoader, DatabaseConstants.DDL_FOLLOWER_USER);
+		String messageSQL = getSQLFromFile(classLoader, DatabaseConstants.DDL_MESSAGE);
 
-		File followerUserFile = new File(classLoader.getResource(DatabaseConstants.DDL_FOLLOWER_USER).getFile());
-		String followerUserSQL = FileUtils.readFileToString(followerUserFile, StandardCharsets.UTF_8);
-
-		File messageFile = new File(classLoader.getResource(DatabaseConstants.DDL_MESSAGE).getFile());
-		String messageSQL = FileUtils.readFileToString(messageFile, StandardCharsets.UTF_8);
-		
 		try (Connection conn = DriverManager.getConnection(DatabaseConstants.DB_URL); 
 				Statement stmt = conn.createStatement()) {
 			stmt.execute(userSQL);
@@ -35,8 +36,14 @@ public class DatabaseHelper {
 			stmt.execute(messageSQL);
 		} catch (SQLException e) {
 			logger.fatal("Failure reported when creating schema", e);
-		} 
+		}
 		
+	}
+
+	private String getSQLFromFile(ClassLoader classLoader, String ddlFile) throws IOException {
+		File userFile = new File(classLoader.getResource(ddlFile).getFile());
+		String userSQL = FileUtils.readFileToString(userFile, StandardCharsets.UTF_8);
+		return userSQL;
 	}
 
 }
