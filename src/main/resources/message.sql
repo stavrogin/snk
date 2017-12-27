@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS message (
-	id INTEGER PRIMARY KEY,
+	message_id INTEGER PRIMARY KEY,
 	user_id INTEGER NOT NULL,
 	message TEXT NOT NULL,
 	insertts TEXT NOT NULL,

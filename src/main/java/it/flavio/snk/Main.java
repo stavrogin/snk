@@ -18,8 +18,8 @@ public class Main {
 		logger.info("Starting app!");
 
 		Application app = new Application();
-		app.execute();
-		
+//		app.execute();
+		app.testDB();
 		logger.info("Exiting");
 	}
 }
