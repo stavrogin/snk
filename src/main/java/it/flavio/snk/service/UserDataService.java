@@ -8,6 +8,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import it.flavio.snk.database.model.Message;
 import it.flavio.snk.database.model.User;
 
 public class UserDataService {
@@ -32,13 +33,37 @@ public class UserDataService {
 		getEntityManager().getTransaction().commit();
 	}
 	
-	public boolean isUserStored(String name) {
+	public User getUserByName(String name) {
 		TypedQuery<User> query = getEntityManager().createQuery("SELECT u FROM User u WHERE u.name = :name", User.class).setParameter("name", name);
 		List<User> users = query.getResultList();
-		if (users.isEmpty()) {
-			return false;
-		}
-		return true;
+		User user = users.isEmpty() ? null : users.get(0);
+		return user;
+	}
+	
+	public void follow(String follower, String followed) {
+		
+	}
+	
+	public List<Message> getUserMessages(String name) {
+		TypedQuery<Message> query = getEntityManager().createQuery("SELECT m FROM User u JOIN u.messages m WHERE u.name = :name", Message.class).setParameter("name", name);
+		List<Message> messages = query.getResultList();
+		return messages;
+	}
+	
+	public List<User> getFollowedUsersByFollowerName(String name) {
+		User user = getUserByName(name);
+		TypedQuery<User> query = getEntityManager().createQuery("SELECT u FROM User u JOIN u.followed f WHERE f.userId = :userId", User.class).setParameter("userId", user.getUserId());
+		List<User> users = query.getResultList();
+		users.forEach(u -> System.out.println(u.getName()));
+		return users;
+	}
+	
+	public List<User> getFollowersByUserName(String name) {
+		User user = getUserByName(name);
+		TypedQuery<User> query = getEntityManager().createQuery("SELECT u FROM User u JOIN u.followers f WHERE f.userId = :userId", User.class).setParameter("userId", user.getUserId());
+		List<User> users = query.getResultList();
+		users.forEach(u -> System.out.println(u.getName()));
+		return users;
 	}
 
 	public List<User> getAllUsers() {
@@ -56,7 +81,7 @@ public class UserDataService {
 	}
 
 	public List<User> getAllFollowed() {
-		Query q = getEntityManager().createQuery("SELECT u FROM User u WHERE u.userId = 1");
+		TypedQuery<User> q = getEntityManager().createQuery("SELECT u FROM User u WHERE u.userId = 1", User.class);
 		List<User> users = q.getResultList();
 		users.stream().map(u -> u.getFollowed()).forEach(u -> u.forEach(fw -> System.out.println(fw.getName())));
 		return null;

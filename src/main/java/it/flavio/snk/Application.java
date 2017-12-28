@@ -32,11 +32,20 @@ public class Application {
 
 	public void testDB() {
 		UserDataService ds = new UserDataService();
-		ds.createUser("flavio");
-		System.out.println(ds.isUserStored("flavio"));
-		System.out.println(ds.isUserStored("flavio2"));
-		ds.getAllUsers();
-		ds.getAllFollowers();
-		ds.getAllFollowed();
+//		ds.createUser("flavio");
+//		System.out.println(ds.getUserByName("flavio"));
+//		System.out.println(ds.getUserByName("flavio2"));
+		
+		System.out.println(ds.getUserMessages("flavio").size());
+		
+		System.out.println("flavio follows:");
+		ds.getFollowedUsersByFollowerName("flavio");
+		System.out.println("******************");
+		System.out.println("flavio is followed by:");
+		ds.getFollowersByUserName("flavio");
+		
+//		ds.getAllUsers();
+//		ds.getAllFollowers();
+//		ds.getAllFollowed();
 	}
 }
