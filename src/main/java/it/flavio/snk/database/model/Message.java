@@ -15,7 +15,6 @@ import javax.persistence.Table;
 
 /**
  * The persistent class for the "message" database table.
- * 
  */
 @Entity
 @Table(name="MESSAGE")
@@ -40,7 +39,7 @@ public class Message implements Serializable {
 
 	public Message() {
 	}
-
+	
 	public Date getInsertts() {
 		return this.insertts;
 	}

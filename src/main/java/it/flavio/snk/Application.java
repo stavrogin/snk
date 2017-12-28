@@ -1,10 +1,8 @@
 package it.flavio.snk;
 
-import java.io.IOException;
 import java.util.Scanner;
 
-import it.flavio.snk.database.DatabaseHelper;
-import it.flavio.snk.service.UserDataService;
+import it.flavio.snk.service.DataServiceImpl;
 
 public class Application {
 	
@@ -25,14 +23,9 @@ public class Application {
 
 	}
 
-	public void execute() throws IOException {
-		DatabaseHelper dbHelper = new DatabaseHelper();
-		dbHelper.createDatabase();
-	}
-
 	public void testDB() {
-		UserDataService ds = new UserDataService();
-//		ds.createUser("flavio");
+		DataServiceImpl ds = new DataServiceImpl();
+		ds.createUser("flavio");
 //		System.out.println(ds.getUserByName("flavio"));
 //		System.out.println(ds.getUserByName("flavio2"));
 		
