@@ -4,28 +4,22 @@
 	version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
 
 	<persistence-unit name="users" transaction-type="RESOURCE_LOCAL">
+	
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-
-<!-- 
-		<provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
-		 -->
 		<class>it.flavio.snk.database.model.Message</class>
 		<class>it.flavio.snk.database.model.User</class>
-<!-- http://www.eclipse.org/eclipselink/documentation/2.4/jpa/extensions/p_logging_level.htm#CHDGFDDH -->
+
+		<property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
+		<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test" />
 		<properties>
-			<property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:sqlite:test.db" />
-			<property name="eclipselink.logging.level" value="INFO" />
+			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:h2:C:/source/snk/db/test.h2" />
+			<property name="javax.persistence.jdbc.user" value="" />
+			<property name="javax.persistence.jdbc.password" value="" />
+			<property name="eclipselink.ddl-generation" value="create-tables" />
+			<property name="eclipselink.ddl-generation.output-mode"	value="database" />
 		</properties>
- 
- <!-- 
-		<properties>
-			<property name="openjpa.ConnectionURL" value="jdbc:sqlite:test.db" />
-			<property name="openjpa.ConnectionDriverName" value="org.sqlite.JDBC" />
-			<property name="openjpa.ConnectionUserName" value="" />
-			<property name="openjpa.ConnectionPassword" value="" />
-			<property name="openjpa.Log" value="DefaultLevel=WARN, Tool=INFO" />
-		</properties>
- -->
+
 	</persistence-unit>
+
 </persistence>

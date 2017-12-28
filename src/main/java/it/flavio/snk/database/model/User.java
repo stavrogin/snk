@@ -4,27 +4,42 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
  * The persistent class for the "user" database table.
  * 
  */
 @Entity
-@Table(name="\"user\"")
-@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+@Table(name = "USER")
+@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
 public class User implements Serializable {
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = 1702461905410489333L;
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "user_id")
+	private Integer userId;
+
+	@Column(name = "name")
 	private String name;
-	private int userId;
+
+	@OneToMany(mappedBy = "user")
 	private List<Message> messages;
-	private List<User> users1;
-	private List<User> users2;
+
+	// bi-directional many-to-many association to User
+	@ManyToMany
+	@JoinTable(name = "follower_user", 
+				joinColumns = {@JoinColumn(name = "follower_id", referencedColumnName = "user_id") }, 
+				inverseJoinColumns = {@JoinColumn(name = "followed_id", referencedColumnName = "user_id") }
+			)
+	private List<User> followers;
+	
+	@ManyToMany(mappedBy = "followers")
+	private List<User> followed;
 
 	public User() {
 	}
 
-
-	@Column(name="\"name\"")
 	public String getName() {
 		return this.name;
 	}
@@ -33,8 +48,6 @@ public class User implements Serializable {
 		this.name = name;
 	}
 
-	@Id
-	@Column(name="\"user_id\"")
 	public int getUserId() {
 		return this.userId;
 	}
@@ -43,9 +56,6 @@ public class User implements Serializable {
 		this.userId = userId;
 	}
 
-
-	//bi-directional many-to-one association to Message
-	@OneToMany(mappedBy="user")
 	public List<Message> getMessages() {
 		return this.messages;
 	}
@@ -68,35 +78,20 @@ public class User implements Serializable {
 		return message;
 	}
 
-
-	//bi-directional many-to-many association to User
-	@ManyToMany
-	@JoinTable(
-		name="follower_user"
-		, joinColumns={
-				@JoinColumn(name="follower_id", referencedColumnName="user_id")
-			}
-		, inverseJoinColumns={
-				@JoinColumn(name="followed_id", referencedColumnName="user_id")
-			}
-		)
-	public List<User> getUsers1() {
-		return this.users1;
+	public List<User> getFollowers() {
+		return this.followers;
 	}
 
-	public void setUsers1(List<User> users1) {
-		this.users1 = users1;
+	public void setFollowers(List<User> followers) {
+		this.followers = followers;
 	}
 
-
-	//bi-directional many-to-many association to User
-	@ManyToMany(mappedBy="users1")
-	public List<User> getUsers2() {
-		return this.users2;
+	public List<User> getFollowed() {
+		return this.followed;
 	}
 
-	public void setUsers2(List<User> users2) {
-		this.users2 = users2;
+	public void setFollowed(List<User> followed) {
+		this.followed = followed;
 	}
 
 }

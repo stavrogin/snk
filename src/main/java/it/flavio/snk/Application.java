@@ -1,6 +1,5 @@
 package it.flavio.snk;
 
-import java.io.Console;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -33,6 +32,9 @@ public class Application {
 
 	public void testDB() {
 		UserDataService ds = new UserDataService();
+		ds.createUser("flavio");
+		System.out.println(ds.isUserStored("flavio"));
+		System.out.println(ds.isUserStored("flavio2"));
 		ds.getAllUsers();
 		ds.getAllFollowers();
 		ds.getAllFollowed();

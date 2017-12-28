@@ -18,9 +18,9 @@ public class Main {
 		logger.info("Starting app!");
 
 		Application app = new Application();
-		app.console();
+//		app.console();
 //		app.execute();
-//		app.testDB();
+		app.testDB();
 		logger.info("Exiting");
 	}
 }
