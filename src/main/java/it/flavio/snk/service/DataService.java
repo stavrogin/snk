@@ -15,7 +15,7 @@ public interface DataService {
 	 * Creates a new user from the passed-in name
 	 * @param name the user name
 	 */
-	void createUser(String name);
+	User retrieveUser(String name);
 	
 	/**
 	 * Gets a user by user name
@@ -51,5 +51,21 @@ public interface DataService {
 	 * @param followedName the user that is wanted to be followed
 	 */
 	void follow(String followerName, String followedName);
+	
+	/**
+	 * Posts a message to the passed-in user timeline
+	 * @param name the user name
+	 * @param text the message text
+	 */
+	void createMessage(String name, String text);
+	
+	/**
+	 * Get all the passed-in user messages
+	 * @param name the user name
+	 */
+	List<Message> getMessagesByUserName(String name);
+	
+	
+	List<Message> getAllFollowedUsersMessages(String name);
 
 }

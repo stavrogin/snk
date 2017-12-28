@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -25,16 +26,17 @@ public class Message implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="message_id")
+	@Column(name="MESSAGE_ID")
 	private Integer messageId;
-	
-	@Column(name="message")
+
+	@Column(name="INSERTTS")
+	private Date insertts;
+
+	@Column(name="MESSAGE")
 	private String message;
 	
-	@Column(name="insertts")
-	private Date insertts;
-	
 	@ManyToOne
+	@JoinColumn(name="USER_ID")
 	private User user;
 
 	public Message() {
@@ -57,11 +59,11 @@ public class Message implements Serializable {
 	}
 
 	
-	public int getMessageId() {
+	public Integer getMessageId() {
 		return this.messageId;
 	}
 
-	public void setMessageId(int messageId) {
+	public void setMessageId(Integer messageId) {
 		this.messageId = messageId;
 	}
 

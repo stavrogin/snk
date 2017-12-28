@@ -1,6 +1,9 @@
 package it.flavio.snk.service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -19,23 +22,16 @@ public class DataServiceImpl implements DataService {
 	private static final String PERSISTENCE_UNIT_NAME = "users";
 
 	@Override
-	public void createUser(String name) {
-		if (!isUserStored(name)) {
-			User user = new User();
+	public User retrieveUser(String name) {
+		User user = getUserByName(name);
+		if (user == null) {
+			user = new User();
 			user.setName(name);
 			getEntityManager().getTransaction().begin();
 			getEntityManager().persist(user);
 			getEntityManager().getTransaction().commit();
 		}
-	}
-	
-	/**
-	 * Checks if the user name already exists
-	 * @param name the user name
-	 * @return true if the user already exists, false otherwise
-	 */
-	private boolean isUserStored(String name) {
-		return getUserByName(name) != null;
+		return user;
 	}
 	
 	@Override
@@ -103,6 +99,44 @@ public class DataServiceImpl implements DataService {
 		return followedCount > 0;
 	}
 	
+	@Override
+	public void createMessage(String name, String text) {
+		User user = retrieveUser(name);
+
+		Message message = new Message();
+		message.setUser(user);
+		message.setMessage(text);
+		message.setInsertts(new Date());
+		
+		getEntityManager().getTransaction().begin();
+		getEntityManager().persist(message);
+		getEntityManager().getTransaction().commit();
+	}
+	
+	@Override
+	public List<Message> getMessagesByUserName(String name) {
+		TypedQuery<Message> query = getEntityManager().createQuery("SELECT m FROM Message m WHERE m.user.name = :name", Message.class).setParameter("name", name);
+		List<Message> messages = query.getResultList();
+		return messages;
+	}
+	
+	@Override
+	public List<Message> getAllFollowedUsersMessages(String name) {
+		User user = getUserByName(name);
+		
+		List<String> userNames = new ArrayList<>();
+		userNames.add(name);
+		
+		List<String> followedNames = user.getFollowed().stream()
+				.map(u -> u.getName())
+				.collect(Collectors.toList());
+		userNames.addAll(followedNames);
+		
+		TypedQuery<Message> query = getEntityManager().createQuery("SELECT m FROM Message m WHERE m.user.name IN :names", Message.class).setParameter("names", userNames);
+		List<Message> messages = query.getResultList();
+		
+		return messages;
+	}
 	
 	/**
 	 * Gets the entity manager factory, creating if it is null
@@ -125,5 +159,5 @@ public class DataServiceImpl implements DataService {
 		}
 		return em;
 	}
-	
+
 }
