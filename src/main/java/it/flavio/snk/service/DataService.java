@@ -65,7 +65,11 @@ public interface DataService {
 	 */
 	List<Message> getMessagesByUserName(String name);
 	
-	
+	/**
+	 * Get all the followed user messages, including the one of the passed-in user
+	 * @param name the user name
+	 * @return all the followed user messages, including the one of the passed-in user
+	 */
 	List<Message> getAllFollowedUsersMessages(String name);
 
 }
