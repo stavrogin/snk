@@ -26,16 +26,20 @@ public class Application {
 	public void testDB() {
 		DataServiceImpl ds = new DataServiceImpl();
 		ds.createUser("flavio");
+		ds.createUser("valentina");
+		ds.createUser("giorgia");
 //		System.out.println(ds.getUserByName("flavio"));
 //		System.out.println(ds.getUserByName("flavio2"));
 		
 		System.out.println(ds.getUserMessages("flavio").size());
+
+		ds.follow("flavio", "valentina");
 		
 		System.out.println("flavio follows:");
-		ds.getFollowedUsersByFollowerName("flavio");
+		ds.getFollowedUsersByFollowerName("flavio").forEach(u -> System.out.println(u.getName()));
 		System.out.println("******************");
 		System.out.println("flavio is followed by:");
-		ds.getFollowersByUserName("flavio");
+		ds.getFollowersByUserName("flavio").forEach(u -> System.out.println(u.getName()));
 		
 //		ds.getAllUsers();
 //		ds.getAllFollowers();

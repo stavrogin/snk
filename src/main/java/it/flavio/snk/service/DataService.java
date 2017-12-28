@@ -44,5 +44,12 @@ public interface DataService {
 	 * @return the followers list
 	 */
 	List<User> getFollowersByUserName(String name);
+	
+	/** 
+	 * Register the follower-followed association
+	 * @param followerName the user that wants to follow someone
+	 * @param followedName the user that is wanted to be followed
+	 */
+	void follow(String followerName, String followedName);
 
 }

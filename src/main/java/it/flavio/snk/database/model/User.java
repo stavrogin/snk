@@ -26,14 +26,21 @@ public class User implements Serializable {
 	@OneToMany(mappedBy = "user")
 	private List<Message> messages;
 
+	//bi-directional many-to-many association to User
 	@ManyToMany
-	@JoinTable(name = "FOLLOWER_USER", 
-				joinColumns = {@JoinColumn(name = "follower_id", referencedColumnName = "user_id") }, 
-				inverseJoinColumns = {@JoinColumn(name = "followed_id", referencedColumnName = "user_id") }
-			)
+	@JoinTable(
+		name="FOLLOWER_USER"
+		, joinColumns={
+			@JoinColumn(name="FOLLOWED_ID")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="FOLLOWER_ID")
+			}
+		)
 	private List<User> followers;
-	
-	@ManyToMany(mappedBy = "followers")
+
+	//bi-directional many-to-many association to User
+	@ManyToMany(mappedBy="followers")
 	private List<User> followed;
 
 	public User() {

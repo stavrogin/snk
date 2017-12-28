@@ -7,6 +7,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
+import org.h2.util.StringUtils;
+
 import it.flavio.snk.database.model.Message;
 import it.flavio.snk.database.model.User;
 
@@ -54,25 +56,54 @@ public class DataServiceImpl implements DataService {
 	@Override
 	public List<User> getFollowedUsersByFollowerName(String name) {
 		User user = getUserByName(name);
-		TypedQuery<User> query = getEntityManager().createQuery("SELECT u FROM User u JOIN u.followed f WHERE f.userId = :userId", User.class).setParameter("userId", user.getUserId());
+		TypedQuery<User> query = getEntityManager().createQuery("SELECT u FROM User u JOIN u.followers f WHERE f.userId = :userId", User.class).setParameter("userId", user.getUserId());
 		List<User> users = query.getResultList();
-		users.forEach(u -> System.out.println(u.getName()));
 		return users;
 	}
 	
 	@Override
 	public List<User> getFollowersByUserName(String name) {
 		User user = getUserByName(name);
-		TypedQuery<User> query = getEntityManager().createQuery("SELECT u FROM User u JOIN u.followers f WHERE f.userId = :userId", User.class).setParameter("userId", user.getUserId());
+		TypedQuery<User> query = getEntityManager().createQuery("SELECT u FROM User u JOIN u.followed f WHERE f.userId = :userId", User.class).setParameter("userId", user.getUserId());
 		List<User> users = query.getResultList();
-		users.forEach(u -> System.out.println(u.getName()));
 		return users;
 	}
 	
-	public void follow(String follower, String followed) {
-		
-	}
 
+	@Override
+	public void follow(String followerName, String followedName) {
+		if (!userFollowsUser(followerName, followedName)) {
+			User follower = getUserByName(followerName);
+			User followed = getUserByName(followedName);
+			
+			getEntityManager().getTransaction().begin();
+			
+			follower.getFollowed().add(followed);
+			followed.getFollowers().add(follower);
+			getEntityManager().merge(follower);
+			getEntityManager().merge(followed);
+			
+			getEntityManager().getTransaction().commit();
+		}
+	}
+	
+	/**
+	 * Checks if a user already follows another user
+	 * @param followerName the follower
+	 * @param followedName the followed
+	 * @return true if the passed-in follower already follows the other user
+	 */
+	private boolean userFollowsUser(String followerName, String followedName) {
+		User follower = getUserByName(followerName);
+
+		long followedCount = follower.getFollowed().stream()
+				.filter(user -> StringUtils.equals(followedName, user.getName()))
+				.count();
+				
+		return followedCount > 0;
+	}
+	
+	
 	/**
 	 * Gets the entity manager factory, creating if it is null
 	 * @return the entity manager factory
