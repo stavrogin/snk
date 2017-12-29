@@ -8,10 +8,17 @@ import it.flavio.snk.command.CommandFactory;
 import it.flavio.snk.database.model.Message;
 import it.flavio.snk.service.DataService;
 import it.flavio.snk.service.DataServiceImpl;
+import it.flavio.snk.utils.ConsoleUtils;
 
 public class Application {
+
+	private DataService dataService;
 	
-	public void console(DataService dataService) {
+	public void setDataService(DataService dataService) {
+		this.dataService = dataService;
+	}
+	
+	public void console() {
 //		http://www.javapractices.com/topic/TopicAction.do?Id=79
 //		https://stackoverflow.com/questions/4203646/system-console-returns-null
 //		https://stackoverflow.com/questions/26470972/trying-to-read-from-the-console-in-java/26473083#26473083
@@ -28,6 +35,8 @@ public class Application {
 			Command cmd = CommandFactory.getCommand(input, dataService);
 			if (cmd != null) {
 				cmd.execute();
+			} else {
+				ConsoleUtils.write("Not recognized command: skipping");
 			}
 //			CommandFactory.getCommand("flavio -> azzo vuoi ciccio", dataService);
 //			CommandFactory.getCommand("flavio", dataService);

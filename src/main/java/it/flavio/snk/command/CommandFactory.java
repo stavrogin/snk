@@ -5,6 +5,13 @@ import java.util.regex.Pattern;
 
 import it.flavio.snk.service.DataService;
 
+/**
+ * 
+ * Factory responsible to create the proper Command implementation depending on the
+ * user input
+ * @author flavio
+ *
+ */
 public class CommandFactory {
 	
 	private static final Pattern POST_PATTERN = Pattern.compile("^(\\w+) -> (.+)$");
@@ -12,6 +19,12 @@ public class CommandFactory {
 	private static final Pattern FOLLOW_PATTERN = Pattern.compile("(\\w+) follows (\\w+)");
 	private static final Pattern WALL_PATTERN = Pattern.compile("(\\w+) wall");
 	
+	/**
+	 * Factory method to create the proper Command implementation
+	 * @param input the user input string
+	 * @param dataService the data service
+	 * @return the proper Command implementation (null if not found)
+	 */
 	public static Command getCommand(String input, DataService dataService) {
 		Matcher matcher = POST_PATTERN.matcher(input);
 		if (matcher.find()) {

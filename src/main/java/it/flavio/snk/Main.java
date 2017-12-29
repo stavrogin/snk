@@ -7,10 +7,13 @@ import org.apache.logging.log4j.Logger;
 
 import it.flavio.snk.command.CommandFactory;
 import it.flavio.snk.service.DataService;
+import it.flavio.snk.service.DataServiceFactory;
 import it.flavio.snk.service.DataServiceImpl;
 
 /**
- * Hello world!
+ * 
+ * Main class to run the SNK application
+ * @author flavio
  *
  */
 public class Main {
@@ -20,15 +23,14 @@ public class Main {
 //	reading: <user name>
 //	following: <user name> follows <another user>
 //	wall: <user name> wall
-
-	
 	
 	public static void main(String[] args) throws IOException {
 		logger.info("Starting app!");
-		DataService dataService = new DataServiceImpl();
+		DataService dataService = DataServiceFactory.getDataService();
 		
 		Application app = new Application();
-		app.console(dataService);
+		app.setDataService(dataService);
+		app.console();
 //		app.testDB();
 		logger.info("Exiting");
 	}

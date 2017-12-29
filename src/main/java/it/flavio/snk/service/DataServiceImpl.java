@@ -15,6 +15,13 @@ import org.h2.util.StringUtils;
 import it.flavio.snk.database.model.Message;
 import it.flavio.snk.database.model.User;
 
+/**
+ * 
+ * Implementation of DataService interface, in order to retrieve data
+ * from the configured database
+ * @author flavio
+ *
+ */
 public class DataServiceImpl implements DataService {
 
 	private static EntityManagerFactory factory;
