@@ -123,18 +123,19 @@ public class DataServiceImpl implements DataService {
 	@Override
 	public List<Message> getAllFollowedUsersMessages(String name) {
 		User user = getUserByName(name);
-		
-		List<String> userNames = new ArrayList<>();
-		userNames.add(name);
-		
-		List<String> followedNames = user.getFollowed().stream()
-				.map(u -> u.getName())
-				.collect(Collectors.toList());
-		userNames.addAll(followedNames);
-		
-		TypedQuery<Message> query = getEntityManager().createQuery("SELECT m FROM Message m WHERE m.user.name IN :names", Message.class).setParameter("names", userNames);
-		List<Message> messages = query.getResultList();
-		
+		List<Message> messages = new ArrayList<>();
+		if (user != null) {
+			List<String> userNames = new ArrayList<>();
+			userNames.add(name);
+			
+			List<String> followedNames = user.getFollowed().stream()
+					.map(u -> u.getName())
+					.collect(Collectors.toList());
+			userNames.addAll(followedNames);
+			
+			TypedQuery<Message> query = getEntityManager().createQuery("SELECT m FROM Message m WHERE m.user.name IN :names", Message.class).setParameter("names", userNames);
+			messages = query.getResultList();
+		}
 		return messages;
 	}
 	
