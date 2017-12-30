@@ -4,8 +4,8 @@ import java.util.List;
 
 import it.flavio.snk.command.Command;
 import it.flavio.snk.command.CommandBase;
+import it.flavio.snk.configuration.Settings;
 import it.flavio.snk.database.model.Message;
-import it.flavio.snk.service.DataService;
 import it.flavio.snk.utils.ConsoleUtils;
 
 /**
@@ -16,8 +16,7 @@ public class ReadCommandImpl extends CommandBase implements Command {
 
 	private String user;
 	
-	public ReadCommandImpl(DataService dataService, String user) {
-		this.dataService = dataService;
+	public ReadCommandImpl(String user) {
 		this.user = user;
 	}
 
@@ -29,10 +28,12 @@ public class ReadCommandImpl extends CommandBase implements Command {
 	
 	/**
 	 * Writes an output on the console
+	 * @param messageList the messages to write
 	 */
 	private void write(List<Message> messageList) {
 		messageList.stream()
 			.sorted((Message m1, Message m2) -> m2.getInsertts().compareTo(m1.getInsertts()))
+			.limit(Settings.getInstance().getTimelineMaxLength())
 			.forEach(m -> ConsoleUtils.writeTimeLineMessage(m));
 	}
 

@@ -10,7 +10,16 @@ import java.util.List;
  */
 @Entity
 @Table(name = "USER")
-@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
+@NamedQueries({
+	@NamedQuery(name = "User.findAll", 
+				query = "SELECT u FROM User u"),
+	@NamedQuery(name = "User.findFollowedByFollowerName", 
+				query = "SELECT u FROM User u JOIN u.followers f WHERE f.userId = :userId"),
+	@NamedQuery(name = "User.findFollowersByUserName", 
+				query = "SELECT u FROM User u JOIN u.followed f WHERE f.userId = :userId"),
+	@NamedQuery(name = "User.findUsersByName", 
+				query = "SELECT u FROM User u WHERE u.name = :name")
+})
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1702461905410489333L;

@@ -18,13 +18,6 @@ public interface DataService {
 	User retrieveUser(String name);
 	
 	/**
-	 * Gets all the messages of the passed-in user name
-	 * @param name the user name
-	 * @return the user message list
-	 */
-	List<Message> getUserMessages(String name);
-	
-	/**
 	 * Gets the list of the users followed by the passed-in user name
 	 * @param name the user name
 	 * @return the list of the followed users

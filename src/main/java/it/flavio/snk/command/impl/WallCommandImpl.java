@@ -4,8 +4,8 @@ import java.util.List;
 
 import it.flavio.snk.command.Command;
 import it.flavio.snk.command.CommandBase;
+import it.flavio.snk.configuration.Settings;
 import it.flavio.snk.database.model.Message;
-import it.flavio.snk.service.DataService;
 import it.flavio.snk.utils.ConsoleUtils;
 
 /**
@@ -16,8 +16,7 @@ public class WallCommandImpl extends CommandBase implements Command {
 
 	private String user;
 
-	public WallCommandImpl(DataService dataService, String user) {
-		this.dataService = dataService;
+	public WallCommandImpl(String user) {
 		this.user = user;
 	}
 
@@ -27,9 +26,14 @@ public class WallCommandImpl extends CommandBase implements Command {
 		write(messageList);
 	}
 
+	/**
+	 * Writes output to console
+	 * @param messageList the messages to write
+	 */
 	private void write(List<Message> messageList) {
 		messageList.stream()
 				.sorted((Message m1, Message m2) -> m2.getInsertts().compareTo(m1.getInsertts()))
+				.limit(Settings.getInstance().getWallMaxLength())
 				.forEach(m -> ConsoleUtils.writeWallMessage(m));
 	}
 

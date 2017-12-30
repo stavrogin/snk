@@ -2,7 +2,6 @@ package it.flavio.snk.command.impl;
 
 import it.flavio.snk.command.Command;
 import it.flavio.snk.command.CommandBase;
-import it.flavio.snk.service.DataService;
 
 /**
  * Command implementation to post a message on the personal timeline
@@ -13,8 +12,7 @@ public class PostCommandImpl extends CommandBase implements Command {
 	private String user;
 	private String messageText;
 	
-	public PostCommandImpl(DataService dataService, String user, String messageText) {
-		this.dataService = dataService;
+	public PostCommandImpl(String user, String messageText) {
 		this.user = user;
 		this.messageText = messageText;
 	}

@@ -40,16 +40,9 @@ public class DataServiceImpl implements DataService {
 	}
 	
 	@Override
-	public List<Message> getUserMessages(String name) {
-		TypedQuery<Message> query = getEntityManager().createQuery("SELECT m FROM User u JOIN u.messages m WHERE u.name = :name", Message.class).setParameter("name", name);
-		List<Message> messages = query.getResultList();
-		return messages;
-	}
-	
-	@Override
 	public List<User> getFollowedUsersByFollowerName(String name) {
 		User user = retrieveUser(name);
-		TypedQuery<User> query = getEntityManager().createQuery("SELECT u FROM User u JOIN u.followers f WHERE f.userId = :userId", User.class).setParameter("userId", user.getUserId());
+		TypedQuery<User> query = getEntityManager().createNamedQuery("User.findFollowedByFollowerName", User.class).setParameter("userId", user.getUserId());
 		List<User> users = query.getResultList();
 		return users;
 	}
@@ -57,7 +50,7 @@ public class DataServiceImpl implements DataService {
 	@Override
 	public List<User> getFollowersByUserName(String name) {
 		User user = retrieveUser(name);
-		TypedQuery<User> query = getEntityManager().createQuery("SELECT u FROM User u JOIN u.followed f WHERE f.userId = :userId", User.class).setParameter("userId", user.getUserId());
+		TypedQuery<User> query = getEntityManager().createNamedQuery("User.findFollowersByUserName", User.class).setParameter("userId", user.getUserId());
 		List<User> users = query.getResultList();
 		return users;
 	}
@@ -114,7 +107,7 @@ public class DataServiceImpl implements DataService {
 	
 	@Override
 	public List<Message> getMessagesByUserName(String name) {
-		TypedQuery<Message> query = getEntityManager().createQuery("SELECT m FROM Message m WHERE m.user.name = :name", Message.class).setParameter("name", name);
+		TypedQuery<Message> query = getEntityManager().createNamedQuery("Message.findByUserName", Message.class).setParameter("name", name);
 		List<Message> messages = query.getResultList();
 		return messages;
 	}
@@ -132,7 +125,7 @@ public class DataServiceImpl implements DataService {
 					.collect(Collectors.toList());
 			userNames.addAll(followedNames);
 			
-			TypedQuery<Message> query = getEntityManager().createQuery("SELECT m FROM Message m WHERE m.user.name IN :names", Message.class).setParameter("names", userNames);
+			TypedQuery<Message> query = getEntityManager().createNamedQuery("Message.findByUserList", Message.class).setParameter("names", userNames);
 			messages = query.getResultList();
 		}
 		return messages;
@@ -144,7 +137,7 @@ public class DataServiceImpl implements DataService {
 	 * @return the User if found; null otherwise
 	 */
 	private User getUserByName(String name) {
-		TypedQuery<User> query = getEntityManager().createQuery("SELECT u FROM User u WHERE u.name = :name", User.class).setParameter("name", name);
+		TypedQuery<User> query = getEntityManager().createNamedQuery("User.findUsersByName", User.class).setParameter("name", name);
 		List<User> users = query.getResultList();
 		User user = users.isEmpty() ? null : users.get(0);
 		return user;

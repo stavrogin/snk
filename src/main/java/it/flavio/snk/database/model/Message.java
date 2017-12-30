@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
@@ -19,9 +20,16 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="MESSAGE")
-@NamedQuery(name="Message.findAll", query="SELECT m FROM Message m")
+@NamedQueries({
+	@NamedQuery(name="Message.findAll", 
+				query="SELECT m FROM Message m"),
+	@NamedQuery(name="Message.findByUserName", 
+				query="SELECT m FROM Message m WHERE m.user.name = :name"),
+	@NamedQuery(name="Message.findByUserList", 
+				query="SELECT m FROM Message m WHERE m.user.name IN :names")
+}) 
 public class Message implements Serializable {
-	
+
 	private static final long serialVersionUID = 9118581415180131961L;
 
 	@Id
