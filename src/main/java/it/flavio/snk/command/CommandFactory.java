@@ -18,8 +18,8 @@ public class CommandFactory {
 	
 	private static final Pattern POST_PATTERN = Pattern.compile("^(\\w+) -> (.+)$");
 	private static final Pattern READ_PATTERN = Pattern.compile("^(\\w+)$");
-	private static final Pattern FOLLOW_PATTERN = Pattern.compile("(\\w+) follows (\\w+)");
-	private static final Pattern WALL_PATTERN = Pattern.compile("(\\w+) wall");
+	private static final Pattern FOLLOW_PATTERN = Pattern.compile("^(\\w+) follows (\\w+)$");
+	private static final Pattern WALL_PATTERN = Pattern.compile("^(\\w+) wall$");
 	
 	/**
 	 * Factory method to create the proper Command implementation depending on the input string

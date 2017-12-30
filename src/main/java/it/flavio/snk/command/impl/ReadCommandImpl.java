@@ -24,6 +24,7 @@ public class ReadCommandImpl extends CommandBase implements Command {
 	@Override
 	public void execute() {
 		List<Message> messageList = dataService.getMessagesByUserName(user);
+		write(messageList);
 	}
 	
 	/**
@@ -31,8 +32,8 @@ public class ReadCommandImpl extends CommandBase implements Command {
 	 */
 	private void write(List<Message> messageList) {
 		messageList.stream()
-			.sorted((Message m1, Message m2) -> m1.getInsertts().compareTo(m2.getInsertts()))
-			.forEach(m -> ConsoleUtils.write(m));
+			.sorted((Message m1, Message m2) -> m2.getInsertts().compareTo(m1.getInsertts()))
+			.forEach(m -> ConsoleUtils.writeTimeLineMessage(m));
 	}
 
 }
