@@ -41,8 +41,11 @@ public class DataServiceImpl implements DataService {
 		return user;
 	}
 	
-	@Override
-	public User getUserByName(String name) {
+	/** Gets a user by name
+	 * @param name the user name
+	 * @return the User if found; null otherwise
+	 */
+	private User getUserByName(String name) {
 		TypedQuery<User> query = getEntityManager().createQuery("SELECT u FROM User u WHERE u.name = :name", User.class).setParameter("name", name);
 		List<User> users = query.getResultList();
 		User user = users.isEmpty() ? null : users.get(0);
@@ -58,7 +61,7 @@ public class DataServiceImpl implements DataService {
 	
 	@Override
 	public List<User> getFollowedUsersByFollowerName(String name) {
-		User user = getUserByName(name);
+		User user = retrieveUser(name);
 		TypedQuery<User> query = getEntityManager().createQuery("SELECT u FROM User u JOIN u.followers f WHERE f.userId = :userId", User.class).setParameter("userId", user.getUserId());
 		List<User> users = query.getResultList();
 		return users;
@@ -66,7 +69,7 @@ public class DataServiceImpl implements DataService {
 	
 	@Override
 	public List<User> getFollowersByUserName(String name) {
-		User user = getUserByName(name);
+		User user = retrieveUser(name);
 		TypedQuery<User> query = getEntityManager().createQuery("SELECT u FROM User u JOIN u.followed f WHERE f.userId = :userId", User.class).setParameter("userId", user.getUserId());
 		List<User> users = query.getResultList();
 		return users;
@@ -76,8 +79,8 @@ public class DataServiceImpl implements DataService {
 	@Override
 	public void follow(String followerName, String followedName) {
 		if (!userFollowsUser(followerName, followedName)) {
-			User follower = getUserByName(followerName);
-			User followed = getUserByName(followedName);
+			User follower = retrieveUser(followerName);
+			User followed = retrieveUser(followedName);
 			
 			getEntityManager().getTransaction().begin();
 			
@@ -97,12 +100,14 @@ public class DataServiceImpl implements DataService {
 	 * @return true if the passed-in follower already follows the other user
 	 */
 	private boolean userFollowsUser(String followerName, String followedName) {
-		User follower = getUserByName(followerName);
+		User follower = retrieveUser(followerName);
 
-		long followedCount = follower.getFollowed().stream()
+		long followedCount = 0;
+		if (follower != null) {
+			followedCount = follower.getFollowed().stream()
 				.filter(user -> StringUtils.equals(followedName, user.getName()))
 				.count();
-				
+		}
 		return followedCount > 0;
 	}
 	
@@ -129,7 +134,7 @@ public class DataServiceImpl implements DataService {
 	
 	@Override
 	public List<Message> getAllFollowedUsersMessages(String name) {
-		User user = getUserByName(name);
+		User user = retrieveUser(name);
 		List<Message> messages = new ArrayList<>();
 		if (user != null) {
 			List<String> userNames = new ArrayList<>();

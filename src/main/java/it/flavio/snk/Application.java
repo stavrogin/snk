@@ -36,7 +36,7 @@ public class Application {
 			if (cmd != null) {
 				cmd.execute();
 			} else {
-				ConsoleUtils.write("Not recognized command: skipping");
+				ConsoleUtils.write("Command not recognized: skipping");
 			}
 //			CommandFactory.getCommand("flavio -> azzo vuoi ciccio", dataService);
 //			CommandFactory.getCommand("flavio", dataService);
