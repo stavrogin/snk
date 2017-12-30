@@ -24,7 +24,11 @@ public class ConsoleUtils {
 	 * @param message the String message to write on the console output
 	 */
 	public static void write(String message) {
-		System.out.println(message);
+		if (message != null) {
+			System.out.println(message);
+		} else {
+			System.out.println();
+		}
 	}
 	
 	/**
@@ -49,6 +53,13 @@ public class ConsoleUtils {
 		StringBuilder sb = new StringBuilder();
 		sb.append(message.getUser().getName()).append(" - ").append(text).append(" ").append(timeGap);
 		write(sb.toString());
+	}
+	
+	/**
+	 * Writes an empty line to the console output
+	 */
+	public static void writeEmptyLine() {
+		write(null);
 	}
 	
 	/**
