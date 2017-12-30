@@ -35,8 +35,9 @@ public class Application {
 		
 		do {
 			input = scanner.nextLine();
-			Command cmd = CommandFactory.getCommand(input, dataService);
+			Command cmd = CommandFactory.getCommand(input);
 			if (cmd != null) {
+				cmd.setDataService(dataService);
 				cmd.execute();
 			} else {
 				logger.info(String.format("Unknown command: %s", input));
