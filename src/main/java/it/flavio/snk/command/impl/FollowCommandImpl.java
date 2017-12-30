@@ -1,7 +1,13 @@
-package it.flavio.snk.command;
+package it.flavio.snk.command.impl;
 
+import it.flavio.snk.command.Command;
+import it.flavio.snk.command.CommandBase;
 import it.flavio.snk.service.DataService;
 
+/**
+ * Command implementation to make a user following another user
+ * @author flavio
+ */
 public class FollowCommandImpl extends CommandBase implements Command {
 
 	private String follower;
@@ -15,7 +21,6 @@ public class FollowCommandImpl extends CommandBase implements Command {
 
 	@Override
 	public void execute() {
-		System.out.println("FOLLOW");
 		dataService.follow(follower, followed);
 	}
 

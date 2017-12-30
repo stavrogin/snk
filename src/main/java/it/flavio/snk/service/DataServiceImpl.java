@@ -16,11 +16,9 @@ import it.flavio.snk.database.model.Message;
 import it.flavio.snk.database.model.User;
 
 /**
- * 
  * Implementation of DataService interface, in order to retrieve data
  * from the configured database
  * @author flavio
- *
  */
 public class DataServiceImpl implements DataService {
 
@@ -38,17 +36,6 @@ public class DataServiceImpl implements DataService {
 			getEntityManager().persist(user);
 			getEntityManager().getTransaction().commit();
 		}
-		return user;
-	}
-	
-	/** Gets a user by name
-	 * @param name the user name
-	 * @return the User if found; null otherwise
-	 */
-	private User getUserByName(String name) {
-		TypedQuery<User> query = getEntityManager().createQuery("SELECT u FROM User u WHERE u.name = :name", User.class).setParameter("name", name);
-		List<User> users = query.getResultList();
-		User user = users.isEmpty() ? null : users.get(0);
 		return user;
 	}
 	
@@ -149,6 +136,18 @@ public class DataServiceImpl implements DataService {
 			messages = query.getResultList();
 		}
 		return messages;
+	}
+	
+	/** 
+	 * Gets a user by name
+	 * @param name the user name
+	 * @return the User if found; null otherwise
+	 */
+	private User getUserByName(String name) {
+		TypedQuery<User> query = getEntityManager().createQuery("SELECT u FROM User u WHERE u.name = :name", User.class).setParameter("name", name);
+		List<User> users = query.getResultList();
+		User user = users.isEmpty() ? null : users.get(0);
+		return user;
 	}
 	
 	/**

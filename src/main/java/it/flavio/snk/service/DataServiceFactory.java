@@ -1,10 +1,8 @@
 package it.flavio.snk.service;
 
 /**
- * 
  * Factory class to create the proper data service
  * @author flavio
- *
  */
 public class DataServiceFactory {
 	

@@ -3,14 +3,16 @@ package it.flavio.snk.command;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import it.flavio.snk.command.impl.FollowCommandImpl;
+import it.flavio.snk.command.impl.PostCommandImpl;
+import it.flavio.snk.command.impl.ReadCommandImpl;
+import it.flavio.snk.command.impl.WallCommandImpl;
 import it.flavio.snk.service.DataService;
 
 /**
- * 
  * Factory responsible to create the proper Command implementation depending on the
  * user input
  * @author flavio
- *
  */
 public class CommandFactory {
 	
@@ -20,7 +22,7 @@ public class CommandFactory {
 	private static final Pattern WALL_PATTERN = Pattern.compile("(\\w+) wall");
 	
 	/**
-	 * Factory method to create the proper Command implementation
+	 * Factory method to create the proper Command implementation depending on the input string
 	 * @param input the user input string
 	 * @param dataService the data service
 	 * @return the proper Command implementation (null if not found)

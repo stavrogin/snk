@@ -24,25 +24,26 @@ public class Application {
 //		https://stackoverflow.com/questions/26470972/trying-to-read-from-the-console-in-java/26473083#26473083
 //		https://stackoverflow.com/questions/5032356/using-scanner-nextline
 //		https://stackoverflow.com/questions/4378824/adding-in-clause-list-to-a-jpa-query
+		
+		System.out.println("Command list:");
+		System.out.println("<user> -> <mesassage> : user posts a message on his timeline");
+		System.out.println("<user> : view user's timeline (all messages written by him)");
+		System.out.println("<user> follows <another_user> : user follows another user");
+		System.out.println("<user> wall : view user's wall (his timeline and his followed people's");
+		System.out.println("exit : close the application");
 		System.out.println("Please insert a command");
+		
 		Scanner scanner = new Scanner(System.in);
 		String input;
 		
 		do {
 			input = scanner.nextLine();
-			System.out.println("Comando: " + input);
-			
 			Command cmd = CommandFactory.getCommand(input, dataService);
 			if (cmd != null) {
 				cmd.execute();
 			} else {
 				ConsoleUtils.write("Command not recognized: skipping");
 			}
-//			CommandFactory.getCommand("flavio -> azzo vuoi ciccio", dataService);
-//			CommandFactory.getCommand("flavio", dataService);
-//			CommandFactory.getCommand("flavio follows giulia", dataService);
-//			CommandFactory.getCommand("giulia wall", dataService);
-			
 		} while (!"exit".equals(input));
 		scanner.close();
 
