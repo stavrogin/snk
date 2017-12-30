@@ -17,6 +17,7 @@ public class ConsoleUtils {
 	private static final String HOURS_AGO = "hours ago";
 	private static final String MINUTES_AGO = "minutes ago";
 	private static final String SECONDS_AGO = "seconds ago";
+	private static final String NOW = "now";
 	
 	/**
 	 * Writes a message string on the console output
@@ -76,7 +77,7 @@ public class ConsoleUtils {
 		if (gap > 0) {
 			return String.format("(%d %s)", gap, SECONDS_AGO);
 		}
-		return null;
+		return String.format("(%s)", NOW);
 	}
 	
 }
