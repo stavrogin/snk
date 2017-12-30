@@ -5,7 +5,8 @@ import java.io.IOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import it.flavio.snk.configuration.Settings;
+import it.flavio.snk.service.DataService;
+import it.flavio.snk.service.DataServiceFactory;
 
 /**
  * 
@@ -27,13 +28,11 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		logger.info("*** Starting app! ***");
 		
-//		DataService dataService = DataServiceFactory.getDataService();
+		DataService dataService = DataServiceFactory.getDataService();
 		
-		Settings.getInstance();
-		
-//		Application app = new Application();
-//		app.setDataService(dataService);
-//		app.console();
+		Application app = new Application();
+		app.setDataService(dataService);
+		app.console();
 		
 		logger.info("Exiting");
 	}

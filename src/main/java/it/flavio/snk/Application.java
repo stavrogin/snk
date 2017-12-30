@@ -2,6 +2,9 @@ package it.flavio.snk;
 
 import java.util.Scanner;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import it.flavio.snk.command.Command;
 import it.flavio.snk.command.CommandFactory;
 import it.flavio.snk.service.DataService;
@@ -13,6 +16,8 @@ import it.flavio.snk.utils.ConsoleUtils;
  */
 public class Application {
 
+	private static Logger logger = LogManager.getLogger(Main.class);
+	
 	private DataService dataService;
 	
 	public void setDataService(DataService dataService) {
@@ -34,7 +39,8 @@ public class Application {
 			if (cmd != null) {
 				cmd.execute();
 			} else {
-				ConsoleUtils.write("Command not recognized: skipping");
+				logger.info(String.format("Unknown command: %s", input));
+				ConsoleUtils.write("Unknown command: skipping");
 			}
 		} while (!"exit".equals(input));
 		scanner.close();
