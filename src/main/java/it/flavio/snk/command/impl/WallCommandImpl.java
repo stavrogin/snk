@@ -30,7 +30,6 @@ public class WallCommandImpl extends CommandBase implements Command {
 				.limit(Settings.getInstance().getWallMaxLength())
 				.forEach(m -> console.writeWallMessage(m));
 		}
-		console.write();
 	}
 
 }

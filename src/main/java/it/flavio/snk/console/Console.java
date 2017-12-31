@@ -5,11 +5,6 @@ import it.flavio.snk.database.model.Message;
 public interface Console {
 
 	/**
-	 * Writes a newline to the console output
-	 */
-	void write();
-	
-	/**
 	 * Writes a message string to the console output
 	 * @param message the message to write
 	 */

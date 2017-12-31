@@ -31,7 +31,6 @@ public class ReadCommandImpl extends CommandBase implements Command {
 				.limit(Settings.getInstance().getTimelineMaxLength())
 				.forEach(m -> console.writeTimelineMessage(m));
 		}
-		console.write();
 	}
 
 }

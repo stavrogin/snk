@@ -5,11 +5,6 @@ import it.flavio.snk.database.model.Message;
 public class ConsoleImpl implements Console {
 
 	@Override
-	public void write() {
-		System.out.println();
-	}
-	
-	@Override
 	public void write(String message) {
 		System.out.println(message);
 	}
