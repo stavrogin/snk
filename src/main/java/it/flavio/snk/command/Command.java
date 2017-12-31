@@ -1,6 +1,9 @@
 package it.flavio.snk.command;
 
+import java.util.List;
+
 import it.flavio.snk.console.Console;
+import it.flavio.snk.database.model.Message;
 import it.flavio.snk.service.DataService;
 
 /**
@@ -33,4 +36,9 @@ public interface Command {
 	 */
 	void write();
 	
+	/**
+	 * Gets the returned message list
+	 * @return the message list to be printed
+	 */
+	List<Message> getMessageList();
 }

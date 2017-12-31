@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 import it.flavio.snk.command.impl.FollowCommandImpl;
 import it.flavio.snk.command.impl.PostCommandImpl;
 import it.flavio.snk.command.impl.ReadCommandImpl;
-import it.flavio.snk.command.impl.UnknownCommand;
+import it.flavio.snk.command.impl.UnknownCommandImpl;
 import it.flavio.snk.command.impl.WallCommandImpl;
 
 /**
@@ -47,7 +47,7 @@ public class CommandFactory {
 			return new WallCommandImpl(matcher.group(1));
 		}
 		
-		return new UnknownCommand(input);
+		return new UnknownCommandImpl(input);
 	}
 	
 }

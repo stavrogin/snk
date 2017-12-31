@@ -1,7 +1,5 @@
 package it.flavio.snk.command.impl;
 
-import java.util.List;
-
 import it.flavio.snk.command.Command;
 import it.flavio.snk.command.CommandBase;
 import it.flavio.snk.configuration.Settings;
@@ -14,7 +12,6 @@ import it.flavio.snk.database.model.Message;
 public class WallCommandImpl extends CommandBase implements Command {
 
 	private String user;
-	private List<Message> messageList;
 
 	public WallCommandImpl(String user) {
 		this.user = user;

@@ -7,11 +7,11 @@ import it.flavio.snk.command.CommandBase;
  * Command implementation of a not known command (outputs an unknown command message)
  * @author flavio
  */
-public class UnknownCommand extends CommandBase implements Command {
+public class UnknownCommandImpl extends CommandBase implements Command {
 
 	private String input;
 	
-	public UnknownCommand(String input) {
+	public UnknownCommandImpl(String input) {
 		this.input = input;
 	}
 	

@@ -1,6 +1,9 @@
 package it.flavio.snk.command;
 
+import java.util.List;
+
 import it.flavio.snk.console.Console;
+import it.flavio.snk.database.model.Message;
 import it.flavio.snk.service.DataService;
 
 /**
@@ -11,6 +14,7 @@ public abstract class CommandBase implements Command {
 
 	protected DataService dataService;
 	protected Console console;
+	protected List<Message> messageList;
 	
 	@Override
 	public void setDataService(DataService dataService) {
@@ -24,5 +28,10 @@ public abstract class CommandBase implements Command {
 	
 	@Override
 	public void write() {}
+	
+	@Override
+	public List<Message> getMessageList() {
+		return messageList;
+	}
 	
 }
