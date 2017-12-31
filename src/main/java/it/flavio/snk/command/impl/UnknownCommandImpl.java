@@ -1,5 +1,8 @@
 package it.flavio.snk.command.impl;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import it.flavio.snk.command.Command;
 import it.flavio.snk.command.CommandBase;
 
@@ -9,9 +12,12 @@ import it.flavio.snk.command.CommandBase;
  */
 public class UnknownCommandImpl extends CommandBase implements Command {
 
+	private static Logger logger = LogManager.getLogger(UnknownCommandImpl.class);
+	
 	private String input;
 	
 	public UnknownCommandImpl(String input) {
+		logger.info("Unknown command: " + input);
 		this.input = input;
 	}
 	

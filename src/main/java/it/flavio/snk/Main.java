@@ -50,6 +50,6 @@ public class Main {
 		
 		scanner.close();
 		
-		logger.info("Exiting");
+		logger.info("*** Exiting ***");
 	}
 }
