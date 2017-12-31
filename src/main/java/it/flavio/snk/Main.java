@@ -1,6 +1,7 @@
 package it.flavio.snk;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -32,13 +33,22 @@ public class Main {
 		logger.info("*** Starting app! ***");
 		
 		DataService dataService = DataServiceFactory.getDataService(Constants.JPA_PERSISTENCE_UNIT_NAME);
-
 		Console console = ConsoleFactory.getConsole();
 		
 		Application app = new Application();
 		app.setDataService(dataService);
 		app.setConsole(console);
-		app.run();
+		app.writeHeader();
+		
+		Scanner scanner = new Scanner(System.in);
+		String input;
+		
+		do {
+			input = scanner.nextLine();
+			app.processInput(input);
+		} while (!"exit".equals(input));
+		
+		scanner.close();
 		
 		logger.info("Exiting");
 	}

@@ -29,7 +29,7 @@
 
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:h2:./dbtest/snkdb" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:testsnkdb" />
 			<property name="javax.persistence.jdbc.user" value="" />
 			<property name="javax.persistence.jdbc.password" value="" />
 			<property name="eclipselink.ddl-generation" value="drop-and-create-tables" />

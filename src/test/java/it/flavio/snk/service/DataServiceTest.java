@@ -21,21 +21,25 @@ public class DataServiceTest {
 	private static final String MESSAGE_3 = "msg3";
 	private static final String MESSAGE_4 = "msg4";
 	private static final String MESSAGE_5 = "msg5";
+	private static final String MESSAGE_6 = "msg6";
 	
 	private DataService dataService;
 	private User testUser1;
 	private User testUser2;
+	private User testUser3;
 	
 	@Before
 	public void setUp() {
 		dataService = DataServiceFactory.getDataService(Constants.JPA_TEST_PERSISTENCE_UNIT_NAME);
 		testUser1 = dataService.retrieveUser("testUser");
 		testUser2 = dataService.retrieveUser("anotherUser");
+		testUser3 = dataService.retrieveUser("anotherUser2");
 		dataService.createMessage(testUser1.getName(), MESSAGE_1);
 		dataService.createMessage(testUser1.getName(), MESSAGE_2);
 		dataService.createMessage(testUser1.getName(), MESSAGE_3);
 		dataService.createMessage(testUser2.getName(), MESSAGE_4);
 		dataService.createMessage(testUser2.getName(), MESSAGE_5);
+		dataService.createMessage(testUser3.getName(), MESSAGE_6);
 	}
 	
 	@After
@@ -58,6 +62,9 @@ public class DataServiceTest {
 		
 		List<Message> user2Messages = dataService.getMessagesByUserName(testUser2.getName());
 		assertTrue(user2Messages.size() == 2);
+		
+		List<Message> user3Messages = dataService.getMessagesByUserName(testUser3.getName());
+		assertTrue(user3Messages.size() == 1);
 	}
 	
 	@Test
@@ -81,6 +88,14 @@ public class DataServiceTest {
 		dataService.follow(testUser1.getName(), testUser2.getName());
 		List<Message> followedMessages = dataService.getAllFollowedUsersMessages(testUser1.getName());
 		assertTrue(followedMessages.size() == 5);
+		
+		dataService.follow(testUser3.getName(), testUser2.getName());
+		followedMessages = dataService.getAllFollowedUsersMessages(testUser3.getName());
+		assertTrue(followedMessages.size() == 3);
+		
+		dataService.follow(testUser1.getName(), testUser3.getName());
+		followedMessages = dataService.getAllFollowedUsersMessages(testUser1.getName());
+		assertTrue(followedMessages.size() == 6);
 	}
 
 }

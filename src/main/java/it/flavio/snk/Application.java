@@ -1,7 +1,5 @@
 package it.flavio.snk;
 
-import java.util.Scanner;
-
 import it.flavio.snk.command.Command;
 import it.flavio.snk.command.CommandFactory;
 import it.flavio.snk.console.Console;
@@ -25,30 +23,21 @@ public class Application {
 	}
 	
 	/**
-	 * Starts the console application by waiting for user inputs
+	 * Processes the input string and run the proper command
+	 * @param input the input string
 	 */
-	public void run() {
-		
-		writeHeader();
-		Scanner scanner = new Scanner(System.in);
-		String input;
-		
-		do {
-			input = scanner.nextLine();
-			Command cmd = CommandFactory.getCommand(input);
-			cmd.setDataService(dataService);
-			cmd.setConsole(console);
-			cmd.execute();
-			cmd.write();
-		} while (!"exit".equals(input));
-		scanner.close();
-
+	public void processInput(String input) {
+		Command cmd = CommandFactory.getCommand(input);
+		cmd.setDataService(dataService);
+		cmd.setConsole(console);
+		cmd.execute();
+		cmd.write();
 	}
 	
 	/**
 	 * Writes the application presentation
 	 */
-	private void writeHeader() {
+	public void writeHeader() {
 		console.write("Command list:");
 		console.write("<user> -> <mesassage> : user posts a message on his timeline");
 		console.write("<user> : view user's timeline (all messages written by him)");

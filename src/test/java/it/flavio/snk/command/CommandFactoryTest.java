@@ -6,6 +6,7 @@ import org.junit.Test;
 import it.flavio.snk.command.impl.FollowCommandImpl;
 import it.flavio.snk.command.impl.PostCommandImpl;
 import it.flavio.snk.command.impl.ReadCommandImpl;
+import it.flavio.snk.command.impl.UnknownCommand;
 import it.flavio.snk.command.impl.WallCommandImpl;
 
 /**
@@ -16,10 +17,8 @@ public class CommandFactoryTest {
 	
 	@Test
 	public void evaluateInputCommand() {
-		Command command = CommandFactory.getCommand("");
-		Assert.assertNull(command);
 		
-		command = CommandFactory.getCommand("testuser");
+		Command command = CommandFactory.getCommand("testuser");
 		Assert.assertTrue(command instanceof ReadCommandImpl);
 		
 		command = CommandFactory.getCommand("testuser -> testmessage1 testmessage2 testmessage3");
@@ -30,6 +29,18 @@ public class CommandFactoryTest {
 		
 		command = CommandFactory.getCommand("testuser follows anothertestuser");
 		Assert.assertTrue(command instanceof FollowCommandImpl);
+		
+		command = CommandFactory.getCommand("");
+		Assert.assertTrue(command instanceof UnknownCommand);
+
+		command = CommandFactory.getCommand("testuser ->");
+		Assert.assertTrue(command instanceof UnknownCommand);
+		
+		command = CommandFactory.getCommand(">testuser");
+		Assert.assertTrue(command instanceof UnknownCommand);
+		
+		command = CommandFactory.getCommand("testuser follow anotheruser");
+		Assert.assertTrue(command instanceof UnknownCommand);
 	}
 
 }
