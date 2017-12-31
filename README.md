@@ -14,4 +14,4 @@ in the target folder
 ### Running
 - Run the follwing command from the command line prompt:
 
-java -jar snk-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+java -jar snk-1.0.0-SNAPSHOT-jar-with-dependencies.jar
