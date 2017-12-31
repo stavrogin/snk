@@ -24,7 +24,8 @@ public class DataServiceImpl implements DataService {
 
 	private static EntityManagerFactory factory;
 	private EntityManager em;
-	private static final String PERSISTENCE_UNIT_NAME = "users";
+	
+	private String persistenceUnitName;
 
 	@Override
 	public User retrieveUser(String name) {
@@ -54,7 +55,6 @@ public class DataServiceImpl implements DataService {
 		List<User> users = query.getResultList();
 		return users;
 	}
-	
 
 	@Override
 	public void follow(String followerName, String followedName) {
@@ -99,9 +99,10 @@ public class DataServiceImpl implements DataService {
 		message.setUser(user);
 		message.setMessage(text);
 		message.setInsertts(new Date());
+		user.getMessages().add(message);
 		
 		getEntityManager().getTransaction().begin();
-		getEntityManager().persist(message);
+		getEntityManager().merge(user);
 		getEntityManager().getTransaction().commit();
 	}
 	
@@ -143,13 +144,32 @@ public class DataServiceImpl implements DataService {
 		return user;
 	}
 	
+	@Override
+	public void deleteAllMessages() {
+		getEntityManager().getTransaction().begin();
+		getEntityManager().createQuery("DELETE FROM Message m").executeUpdate();
+		getEntityManager().getTransaction().commit();
+	}
+
+	@Override
+	public void deleteAllUsers() {
+		getEntityManager().getTransaction().begin();
+		getEntityManager().createQuery("DELETE FROM User u").executeUpdate();
+		getEntityManager().getTransaction().commit();
+	}
+	
+	@Override
+	public void setPersistenceUnitName(String persistenceUnitName) {
+		this.persistenceUnitName = persistenceUnitName;
+	}
+	
 	/**
 	 * Gets the entity manager factory, creating if it is null
 	 * @return the entity manager factory
 	 */
 	private EntityManagerFactory getEntityManagerFactory() {
 		if (factory == null) {
-			factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+			factory = Persistence.createEntityManagerFactory(persistenceUnitName);
 		}
 		return factory;
 	}

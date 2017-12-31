@@ -12,6 +12,12 @@ import it.flavio.snk.database.model.User;
 public interface DataService {
 	
 	/**
+	 * Sets the JPA persistence unit name
+	 * @param name the persistence unit name
+	 */
+	void setPersistenceUnitName(String persistenceUnitName);
+	
+	/**
 	 * Creates a new user from the passed-in name
 	 * @param name the user name
 	 */
@@ -57,5 +63,15 @@ public interface DataService {
 	 * @return all the followed user messages, including the one of the passed-in user
 	 */
 	List<Message> getAllFollowedUsersMessages(String name);
+	
+	/**
+	 * Delete all messages
+	 */
+	void deleteAllMessages();
+	
+	/**
+	 * Delete all users
+	 */
+	void deleteAllUsers();
 
 }

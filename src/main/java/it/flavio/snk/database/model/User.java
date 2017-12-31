@@ -26,16 +26,15 @@ public class User implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "user_id")
+	@Column(name = "USER_ID")
 	private Integer userId;
 
-	@Column(name = "name")
+	@Column(name = "NAME")
 	private String name;
 
 	@OneToMany(mappedBy = "user")
 	private List<Message> messages;
 
-	//bi-directional many-to-many association to User
 	@ManyToMany
 	@JoinTable(
 		name="FOLLOWER_USER"

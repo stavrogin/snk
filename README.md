@@ -1,10 +1,10 @@
 # snk
 
 ### Technical details
-- This application is implemented in Java 8 storing data on a local H2 database
+- This application is implemented with Java 8 storing data on a local H2 database
 
 ### Packaging
-- Once installed Maven (tested on Maven 3.5.0), run the following command:
+- Once installed Maven (tested with Maven 3.5.0), run the following command:
 
 mvn clean compile assembly:single
 

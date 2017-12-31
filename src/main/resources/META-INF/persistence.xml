@@ -9,14 +9,30 @@
 		<class>it.flavio.snk.database.model.Message</class>
 		<class>it.flavio.snk.database.model.User</class>
 
-		<property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
-		<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test" />
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:h2:./db/snkdb" />
 			<property name="javax.persistence.jdbc.user" value="" />
 			<property name="javax.persistence.jdbc.password" value="" />
 			<property name="eclipselink.ddl-generation" value="create-tables" />
+			<property name="eclipselink.ddl-generation.output-mode"	value="database" />
+			<property name="eclipselink.logging.level" value="OFF"/>
+		</properties>
+
+	</persistence-unit>
+	
+	<persistence-unit name="tests" transaction-type="RESOURCE_LOCAL">
+	
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<class>it.flavio.snk.database.model.Message</class>
+		<class>it.flavio.snk.database.model.User</class>
+
+		<properties>
+			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:h2:./dbtest/snkdb" />
+			<property name="javax.persistence.jdbc.user" value="" />
+			<property name="javax.persistence.jdbc.password" value="" />
+			<property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
 			<property name="eclipselink.ddl-generation.output-mode"	value="database" />
 			<property name="eclipselink.logging.level" value="OFF"/>
 		</properties>
