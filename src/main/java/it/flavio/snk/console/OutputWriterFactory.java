@@ -1,16 +1,16 @@
 package it.flavio.snk.console;
 
 /**
- * Factory to return a new console implementation
+ * Factory to return a new output writer implementation
  * @author flavio
  */
 public class OutputWriterFactory {
 	
 	/**
-	 * Gets the console implementation
-	 * @return the console implementation
+	 * Gets the output implementation
+	 * @return the output implementation
 	 */
-	public static OutputWriter getConsole() {
+	public static OutputWriter getOutput() {
 		return new ConsoleImpl();
 	}
 	

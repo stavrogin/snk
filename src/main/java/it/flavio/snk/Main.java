@@ -33,7 +33,7 @@ public class Main {
 		logger.info("*** Starting app! ***");
 		
 		DataService dataService = DataServiceFactory.getDataService(Constants.JPA_PERSISTENCE_UNIT_NAME);
-		OutputWriter console = OutputWriterFactory.getConsole();
+		OutputWriter console = OutputWriterFactory.getOutput();
 		
 		Application app = new Application();
 		app.setDataService(dataService);
