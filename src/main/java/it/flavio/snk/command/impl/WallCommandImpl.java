@@ -28,7 +28,7 @@ public class WallCommandImpl extends CommandBase implements Command {
 			messageList.stream()
 				.sorted((Message m1, Message m2) -> m2.getInsertts().compareTo(m1.getInsertts()))
 				.limit(Settings.getInstance().getWallMaxLength())
-				.forEach(m -> console.writeWallMessage(m));
+				.forEach(m -> output.writeWallMessage(m));
 		}
 	}
 

@@ -2,7 +2,7 @@ package it.flavio.snk.console;
 
 import it.flavio.snk.database.model.Message;
 
-public interface Console {
+public interface OutputWriter {
 
 	/**
 	 * Writes a message string to the console output

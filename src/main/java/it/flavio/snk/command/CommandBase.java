@@ -2,7 +2,7 @@ package it.flavio.snk.command;
 
 import java.util.List;
 
-import it.flavio.snk.console.Console;
+import it.flavio.snk.console.OutputWriter;
 import it.flavio.snk.database.model.Message;
 import it.flavio.snk.service.DataService;
 
@@ -13,7 +13,7 @@ import it.flavio.snk.service.DataService;
 public abstract class CommandBase implements Command {
 
 	protected DataService dataService;
-	protected Console console;
+	protected OutputWriter output;
 	protected List<Message> messageList;
 	
 	@Override
@@ -22,8 +22,8 @@ public abstract class CommandBase implements Command {
 	};
 	
 	@Override
-	public void setConsole(Console console) {
-		this.console = console;
+	public void setOutput(OutputWriter console) {
+		this.output = console;
 	}
 	
 	@Override

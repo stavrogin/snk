@@ -29,7 +29,7 @@ public class ReadCommandImpl extends CommandBase implements Command {
 			messageList.stream()
 				.sorted((Message m1, Message m2) -> m2.getInsertts().compareTo(m1.getInsertts()))
 				.limit(Settings.getInstance().getTimelineMaxLength())
-				.forEach(m -> console.writeTimelineMessage(m));
+				.forEach(m -> output.writeTimelineMessage(m));
 		}
 	}
 

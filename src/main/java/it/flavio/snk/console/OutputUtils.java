@@ -11,7 +11,7 @@ import it.flavio.snk.database.model.Message;
  * @author flavio
  *
  */
-public class ConsoleUtils {
+public class OutputUtils {
 
 	private static final String DAYS_AGO = "days ago";
 	private static final String HOURS_AGO = "hours ago";

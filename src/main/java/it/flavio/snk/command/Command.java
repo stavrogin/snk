@@ -2,7 +2,7 @@ package it.flavio.snk.command;
 
 import java.util.List;
 
-import it.flavio.snk.console.Console;
+import it.flavio.snk.console.OutputWriter;
 import it.flavio.snk.database.model.Message;
 import it.flavio.snk.service.DataService;
 
@@ -24,7 +24,7 @@ public interface Command {
 	 * Sets the console
 	 * @param console the console to write output to
 	 */
-	void setConsole(Console console);
+	void setOutput(OutputWriter console);
 	
 	/**
 	 * Executes the command

@@ -26,6 +26,6 @@ public class UnknownCommandImpl extends CommandBase implements Command {
 
 	@Override
 	public void write() {
-		console.write("Unknown command: " + input);
+		output.write("Unknown command: " + input);
 	}
 }

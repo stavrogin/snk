@@ -2,7 +2,7 @@ package it.flavio.snk.console;
 
 import it.flavio.snk.database.model.Message;
 
-public class ConsoleImpl implements Console {
+public class ConsoleImpl implements OutputWriter {
 
 	@Override
 	public void write(String message) {
@@ -12,7 +12,7 @@ public class ConsoleImpl implements Console {
 	@Override
 	public void writeWallMessage(Message message) {
 		String text = message.getMessage();
-		String timeGap = ConsoleUtils.getTimeGapAsString(message);
+		String timeGap = OutputUtils.getTimeGapAsString(message);
 		StringBuilder sb = new StringBuilder();
 		sb.append(message.getUser().getName()).append(" - ").append(text).append(" ").append(timeGap);
 		write(sb.toString());
@@ -21,7 +21,7 @@ public class ConsoleImpl implements Console {
 	@Override
 	public void writeTimelineMessage(Message message) {
 		String text = message.getMessage();
-		String timeGap = ConsoleUtils.getTimeGapAsString(message);
+		String timeGap = OutputUtils.getTimeGapAsString(message);
 		StringBuilder sb = new StringBuilder();
 		sb.append(text).append(" ").append(timeGap);
 		write(sb.toString());

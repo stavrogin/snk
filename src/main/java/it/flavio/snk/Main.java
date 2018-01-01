@@ -6,8 +6,8 @@ import java.util.Scanner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import it.flavio.snk.console.Console;
-import it.flavio.snk.console.ConsoleFactory;
+import it.flavio.snk.console.OutputWriter;
+import it.flavio.snk.console.OutputWriterFactory;
 import it.flavio.snk.constants.Constants;
 import it.flavio.snk.service.DataService;
 import it.flavio.snk.service.DataServiceFactory;
@@ -33,7 +33,7 @@ public class Main {
 		logger.info("*** Starting app! ***");
 		
 		DataService dataService = DataServiceFactory.getDataService(Constants.JPA_PERSISTENCE_UNIT_NAME);
-		Console console = ConsoleFactory.getConsole();
+		OutputWriter console = OutputWriterFactory.getConsole();
 		
 		Application app = new Application();
 		app.setDataService(dataService);
