@@ -42,7 +42,7 @@ public class Application {
 		console.write("<user> -> <mesassage> : user posts a message on his timeline");
 		console.write("<user> : view user's timeline (all messages written by him)");
 		console.write("<user> follows <another_user> : user follows another user");
-		console.write("<user> wall : view user's wall (his timeline and his followed people's");
+		console.write("<user> wall : view user's wall (his timeline and his followed people's)");
 		console.write("exit : close the application");
 		console.write("Please insert a command");
 	}
