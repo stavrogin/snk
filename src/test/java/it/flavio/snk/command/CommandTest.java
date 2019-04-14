@@ -14,6 +14,8 @@ import it.flavio.snk.command.impl.PostCommandImpl;
 import it.flavio.snk.command.impl.ReadCommandImpl;
 import it.flavio.snk.command.impl.UnknownCommandImpl;
 import it.flavio.snk.command.impl.WallCommandImpl;
+import it.flavio.snk.console.OutputWriter;
+import it.flavio.snk.console.OutputWriterFactory;
 import it.flavio.snk.constants.Constants;
 import it.flavio.snk.database.model.Message;
 import it.flavio.snk.service.DataService;
@@ -26,10 +28,12 @@ import it.flavio.snk.service.DataServiceFactory;
 public class CommandTest {
 
 	private DataService dataService;
+	private OutputWriter output;
 	
 	@Before
 	public void setUp() {
 		dataService = DataServiceFactory.getDataService(Constants.JPA_TEST_PERSISTENCE_UNIT_NAME);
+		output = OutputWriterFactory.getOutput();
 	}
 	
 	@After 
@@ -109,6 +113,27 @@ public class CommandTest {
 
 		messages = cmd.getMessageList();
 		assertEquals(messages.size(), 2);
+	}
+	
+	@Test
+	public void evaluateFriends() {
+		Command cmd = CommandFactory.getCommand("bob follows jim");
+		cmd.setDataService(dataService);
+		cmd.execute();
+		
+		cmd = CommandFactory.getCommand("bob follows tom");
+		cmd.setDataService(dataService);
+		cmd.execute();
+		cmd = CommandFactory.getCommand("bob follows mark");
+		cmd.setDataService(dataService);
+		cmd.execute();
+		
+		cmd = CommandFactory.getCommand("bob friends");
+		cmd.setDataService(dataService);
+		cmd.setOutput(output);
+		cmd.execute();
+		
+		cmd.write();
 	}
 
 }

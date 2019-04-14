@@ -74,4 +74,5 @@ public interface DataService {
 	 */
 	void deleteAllUsers();
 
+	List<User> getFriendsList(String userName);
 }

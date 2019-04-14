@@ -21,6 +21,7 @@ import it.flavio.snk.service.DataServiceFactory;
  *	reading: <user name>
  *	following: <user name> follows <another user>
  *	wall: <user name> wall
+ *	friends: <user name> friends
  *  exit
  *
  * @author flavio

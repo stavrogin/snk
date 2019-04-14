@@ -185,4 +185,14 @@ public class DataServiceImpl implements DataService {
 		return em;
 	}
 
+	@Override
+	public List<User> getFriendsList(String userName) {
+		User user = retrieveUser(userName);
+		if (user != null) {
+			List<User> friendsList = user.getFollowed();
+			return friendsList;
+		}
+		return null;
+	}
+
 }

@@ -1,6 +1,7 @@
 package it.flavio.snk.console;
 
 import it.flavio.snk.database.model.Message;
+import it.flavio.snk.database.model.User;
 
 public class ConsoleImpl implements OutputWriter {
 
@@ -25,6 +26,11 @@ public class ConsoleImpl implements OutputWriter {
 		StringBuilder sb = new StringBuilder();
 		sb.append(text).append(" ").append(timeGap);
 		write(sb.toString());
+	}
+
+	@Override
+	public void writeFriend(User user) {
+		write(user.getName());
 	}
 
 }

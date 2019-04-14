@@ -1,6 +1,7 @@
 package it.flavio.snk.console;
 
 import it.flavio.snk.database.model.Message;
+import it.flavio.snk.database.model.User;
 
 public interface OutputWriter {
 
@@ -21,5 +22,7 @@ public interface OutputWriter {
 	 * @param message the message to be written
 	 */
 	void writeTimelineMessage(Message message);
+	
+	void writeFriend(User user);
 	
 }

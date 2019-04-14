@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import it.flavio.snk.command.impl.FollowCommandImpl;
+import it.flavio.snk.command.impl.FriendsCommandImpl;
 import it.flavio.snk.command.impl.PostCommandImpl;
 import it.flavio.snk.command.impl.ReadCommandImpl;
 import it.flavio.snk.command.impl.UnknownCommandImpl;
@@ -20,6 +21,7 @@ public class CommandFactory {
 	private static final Pattern READ_PATTERN = Pattern.compile("^(\\w+)$");
 	private static final Pattern FOLLOW_PATTERN = Pattern.compile("^(\\w+) follows (\\w+)$");
 	private static final Pattern WALL_PATTERN = Pattern.compile("^(\\w+) wall$");
+	private static final Pattern FRIENDS_PATTERN = Pattern.compile("^(\\w+) friends$");
 	
 	/**
 	 * Factory method to create the proper Command implementation depending on the input string
@@ -45,6 +47,11 @@ public class CommandFactory {
 		matcher = WALL_PATTERN.matcher(input);
 		if (matcher.find()) {
 			return new WallCommandImpl(matcher.group(1));
+		}
+		
+		matcher = FRIENDS_PATTERN.matcher(input);
+		if (matcher.find()) {
+			return new FriendsCommandImpl(matcher.group(1));
 		}
 		
 		return new UnknownCommandImpl(input);
